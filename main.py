@@ -66,7 +66,6 @@ def incheon() :
 def dream_forest():
     url = "https://www.sejongpac.or.kr/portal/bbs/B0000002/list.do?menuNo=200012"
 
-
     try:
         driver.get(url)
         table_list = driver.find_element(By.CLASS_NAME, "bbs-list")
@@ -84,9 +83,35 @@ def dream_forest():
         print("Error Occured", e)
 
 
+#과천시민회관
+def gwacheon():
+    url = "https://www.gcart.or.kr/kr/commu/noticeList.do"
+
+    try:
+        driver.get(url)
+        ul = driver.find_element(By.CLASS_NAME, "notice_list")
+        li_list = ul.find_elements(By.TAG_NAME, "li")
+
+        for li in li_list:
+            if not li.text:
+                continue
+            name = li.find_element(By.CLASS_NAME, "name")
+            if name.text in "대관":
+                print(name.text)
+                print("과천 시민회관 떴다")
+                break
+
+
+    except requests.exceptions.RequestException as e:
+        print("Error Occured", e)
+
+
+
+
 if __name__ == '__main__':
     gwanak()
     incheon()
     dream_forest()
+    gwacheon()
 
 
